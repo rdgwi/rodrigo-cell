@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Rodrigo Cell</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #0f1012;
+      color: white;
+    }
+
+    .app {
+      max-width: 480px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* CABEÇALHO */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #ffd21c;
+    }
+
+    .badge {
+      background: #ffd21c;
+      color: #111;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    /* CARD */
+    .card {
+      background: #1a1c20;
+      border: 1px solid #292c32;
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    .descricao {
+      color: #aeb2bb;
+      font-size: 14px;
+      margin: 8px 0 20px;
+    }
+
+    /* CAMPOS */
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-size: 13px;
+      color: #d4d6da;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #363941;
+      background: #101114;
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #ffd21c;
+    }
+
+    textarea {
+      min-height: 75px;
+      resize: vertical;
+    }
+
+    .linha {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    /* TOTAL */
+    .total {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 17px;
+      background: linear-gradient(135deg, #ffd21c, #ffb900);
+      color: #111;
+    }
+
+    .total small {
+      font-weight: bold;
+    }
+
+    .total strong {
+      display: block;
+      font-size: 30px;
+      margin-top: 5px;
+    }
+
+    /* BOTÕES */
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 13px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .principal {
+      background: #ffd21c;
+      color: #111;
+    }
+
+    .whatsapp {
+      background: #20c56a;
+      color: white;
+    }
+
+    .limpar {
+      background: #292c32;
+      color: white;
+    }
+
+    /* STATUS */
+    #mensagem {
+      margin-top: 12px;
+      color: #7ee787;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* MENU */
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-top: 15px;
+    }
+
+    .menu button {
+      margin: 0;
+      padding: 11px 4px;
+      font-size: 11px;
+      background: #202227;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header>
+    <div class="logo">
+      RODRIGO <span>CELL</span>
+    </div>
+
+    <div class="badge">
+      ASSISTÊNCIA
+    </div>
+  </header>
+
+
+  <div class="card">
+
+    <h1>📋 Novo orçamento</h1>
+
+    <div class="descricao">
+      Faça o orçamento do cliente de forma rápida.
+    </div>
+
+
+    <!-- CLIENTE -->
+    <label>Nome do cliente</label>
+
+    <input
+      id="cliente"
+      type="text"
+      placeholder="Ex.: João Silva"
+    >
+
+
+    <!-- CELULAR -->
+    <label>Modelo do celular</label>
+
+    <input
+      id="modelo"
+      type="text"
+      placeholder="Ex.: Galaxy A14"
+    >
+
+
+    <!-- DEFEITO -->
+    <label>Defeito / Serviço</label>
+
+    <textarea
+      id="defeito"
+      placeholder="Ex.: Troca de tela quebrada"
+    ></textarea>
+
+
+    <!-- PEÇA -->
+    <label>Peça utilizada</label>
+
+    <input
+      id="peca"
+      type="text"
+      placeholder="Ex.: Tela LCD"
+    >
+
+
+    <div class="linha">
+
+      <div>
+
+        <label>Custo da peça</label>
+
+        <input
+          id="custo"
+          type="number"
+          value="0"
+          min="0"
+          step="0.01"
+          oninput="calcular()"
+        >
+
+      </div>
+
+
+      <div>
+
+        <label>Mão de obra</label>
+
+        <input
+          id="maoobra"
+          type="number"
+          value="40"
+          min="0"
+          step="0.01"
+          oninput="calcular()"
+        >
+
+      </div>
+
+    </div>
+
+
+    <!-- MARGEM -->
+    <label>Margem de lucro (%)</label>
+
+    <input
+      id="margem"
+      type="number"
+      value="40"
+      min="0"
+      oninput="calcular()"
+    >
+
+
+    <!-- TOTAL -->
+    <div class="total">
+
+      <small>VALOR FINAL DO ORÇAMENTO</small>
+
+      <strong id="total">
+        R$ 56,00
+      </strong>
+
+    </div>
+
+
+    <!-- BOTÕES -->
+
+    <button
+      class="principal"
+      onclick="salvar()"
+    >
+      💾 SALVAR ORÇAMENTO
+    </button>
+
+
+    <button
+      class="whatsapp"
+      onclick="enviarWhatsApp()"
+    >
+      📲 ENVIAR PELO WHATSAPP
+    </button>
+
+
+    <button
+      class="limpar"
+      onclick="limpar()"
+    >
+      🗑️ LIMPAR
+    </button>
+
+
+    <div id="mensagem"></div>
+
+  </div>
+
+
+  <!-- MENU -->
+
+  <div class="menu">
+
+    <button>
+      🏠<br>
+      Início
+    </button>
+
+    <button>
+      📋<br>
+      Orçamentos
+    </button>
+
+    <button>
+      👥<br>
+      Clientes
+    </button>
+
+    <button>
+      ⚙️<br>
+      Config.
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   CALCULAR ORÇAMENTO
+========================= */
+
+function calcular() {
+
+  let custo =
+    Number(document.getElementById("custo").value) || 0;
+
+  let maoobra =
+    Number(document.getElementById("maoobra").value) || 0;
+
+  let margem =
+    Number(document.getElementById("margem").value) || 0;
+
+
+  let subtotal = custo + maoobra;
+
+  let lucro = subtotal * (margem / 100);
+
+  let total = subtotal + lucro;
+
+
+  document.getElementById("total").innerText =
+    dinheiro(total);
+
+
+  return total;
+}
+
+
+/* =========================
+   FORMATA DINHEIRO
+========================= */
+
+function dinheiro(valor) {
+
+  return valor.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+
+}
+
+
+/* =========================
+   SALVAR
+========================= */
+
+function salvar() {
+
+  let orçamento = {
+
+    cliente:
+      document.getElementById("cliente").value,
+
+    modelo:
+      document.getElementById("modelo").value,
+
+    defeito:
+      document.getElementById("defeito").value,
+
+    peca:
+      document.getElementById("peca").value,
+
+    custo:
+      document.getElementById("custo").value,
+
+    maoobra:
+      document.getElementById("maoobra").value,
+
+    margem:
+      document.getElementById("margem").value,
+
+    total:
+      calcular(),
+
+    data:
+      new Date().toLocaleString("pt-BR")
+
+  };
+
+
+  let lista =
+    JSON.parse(
+      localStorage.getItem("orcamentos")
+    ) || [];
+
+
+  lista.push(orçamento);
+
+
+  localStorage.setItem(
+    "orcamentos",
+    JSON.stringify(lista)
+  );
+
+
+  document.getElementById("mensagem").innerText =
+    "✓ Orçamento salvo com sucesso!";
+
+}
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+function enviarWhatsApp() {
+
+  let cliente =
+    document.getElementById("cliente").value;
+
+  let modelo =
+    document.getElementById("modelo").value;
+
+  let defeito =
+    document.getElementById("defeito").value;
+
+  let peca =
+    document.getElementById("peca").value;
+
+  let total =
+    calcular();
+
+
+  let mensagem =
+
+`📱 RODRIGO CELL
+
+Olá${cliente ? " " + cliente : ""}!
+
+Segue seu orçamento:
+
+📱 Aparelho: ${modelo || "Não informado"}
+
+🔧 Serviço:
+${defeito || "Não informado"}
+
+🧩 Peça:
+${peca || "Não informado"}
+
+💰 Valor total:
+${dinheiro(total)}
+
+━━━━━━━━━━━━━━
+
+Obrigado pela preferência!
+RODRIGO CELL 🚀`;
+
+
+  let link =
+    "https://wa.me/?text=" +
+    encodeURIComponent(mensagem);
+
+
+  window.open(link, "_blank");
+
+}
+
+
+/* =========================
+   LIMPAR
+========================= */
+
+function limpar() {
+
+  document.getElementById("cliente").value = "";
+
+  document.getElementById("modelo").value = "";
+
+  document.getElementById("defeito").value = "";
+
+  document.getElementById("peca").value = "";
+
+  document.getElementById("custo").value = 0;
+
+  document.getElementById("maoobra").value = 40;
+
+  document.getElementById("margem").value = 40;
+
+  document.getElementById("mensagem").innerText = "";
+
+  calcular();
+
+}
+
+
+/* CALCULA AO ABRIR */
+
+calcular();
+
+</script>
+
+</body>
+</html>
